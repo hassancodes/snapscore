@@ -6,14 +6,6 @@ import os
 import sys
 
 
-
-
-
-
-
-
-
-
 class SnapScore:  # cam image and screen image should be string
     def __init__(self, device):
         self.device = device
@@ -63,28 +55,3 @@ if __name__ =="__main__":
         snp.take_picture()
         snp.send_image()    
         
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
