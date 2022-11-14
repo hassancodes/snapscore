@@ -1,6 +1,10 @@
 # snapscore
 An adb bot that builds my snapscore automatically
-# Flex while you unsnap 😂
+# Flex while you unsnap 😜
+
+## Before
+
+## After
 
 # Implementing multiple snapsends concurrently.
 Efficiency will be increased by 500% assuming that we are sending snaps to 5 people at the same time.
@@ -30,3 +34,8 @@ What can Be improved?
 * And automatically perform actions on those cordinates. this will genius and unstopable but then everyone will have a higher snapscore and then it will not be fun. I am thinking of making this a private repo lol 😂😂.
 
 Just kidding. 
+
+current snapscore reached : 260,000
+images sent : 255,000+
+
+Notes: "Still not getting banned on snapchat. lets just keep building snapscore"

@@ -33,7 +33,7 @@ class SnapScore:  # cam image and screen image should be string
         main_cam_cords=(542,2290)
         cam_click_img_cord =(535,2050)
         next_cord = (925,2280)
-        friends_grp_cord=(879,1510)
+        friends_grp_cord=(879,1100)
         send_grp_cord =(992,2270)
         # get the camera location in the middle
         # take the image 
@@ -51,6 +51,7 @@ class SnapScore:  # cam image and screen image should be string
             self.device.shell(f'input touchscreen tap {friends_grp_cord[0]} {friends_grp_cord[1]}')
             time.sleep(1)
             self.device.shell(f'input touchscreen tap {send_grp_cord[0]} {send_grp_cord[1]}')
+            print(f"cyle: {count}")
         
         
         
