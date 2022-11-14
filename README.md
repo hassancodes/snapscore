@@ -6,7 +6,7 @@ An adb bot that builds my snapscore automatically
 <img src=before.jpeg height=470 width=350>
 
 ## After
-<img src=after.jpeg height=700 width=350>
+<img src=after.jpeg height=750 width=350>
 
 # Implementing multiple snapsends concurrently.
 Efficiency will be increased by 500% assuming that we are sending snaps to 5 people at the same time.
