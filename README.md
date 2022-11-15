@@ -2,10 +2,12 @@
 An adb bot that builds my snapscore automatically
 # Flex while you unsnap 😜
 
-## Before
+# Before
+
 <img src=before.jpeg height=470 width=350>
 
-## After
+# After
+
 <img src=after.jpeg height=750 width=350>
 
 # Implementing multiple snapsends concurrently.
