@@ -33,7 +33,10 @@ class SnapScore:  # cam image and screen image should be string
         main_cam_cords=(542,2290)
         cam_click_img_cord =(535,2050)
         next_cord = (925,2280)
-        friends_grp_cord=(879,1100)
+        # friends_grp_cord=(879,1100)
+        # friends_grp_cord=(910,1225)
+        friends_grp_cord=(910,1951)
+
         send_grp_cord =(992,2270)
         # get the camera location in the middle
         # take the image 
@@ -89,7 +92,7 @@ if __name__ == "__main__":
     if sys.argv[1] == 'exp':
         # write exponential code over here
         snp.exp_snaps()
-    else:
+    elif sys.argv[1] =='reg':
 
         snapsent = 0
         while(snapsent !=1000):
