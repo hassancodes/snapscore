@@ -34,8 +34,10 @@ class SnapScore:  # cam image and screen image should be string
         cam_click_img_cord =(535,2050)
         next_cord = (925,2280)
         # friends_grp_cord=(879,1100)
-        # friends_grp_cord=(910,1225)
-        friends_grp_cord=(910,1951)
+        friends_grp_cord=(910,1225)
+        
+        # use this one where are some best friends
+        # friends_grp_cord=(910,1951)
 
         send_grp_cord =(992,2270)
         # get the camera location in the middle
