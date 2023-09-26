@@ -58,7 +58,7 @@ class SnapScore:  # cam image and screen image should be string
             self.device.shell(f'input touchscreen tap {send_grp_cord[0]} {send_grp_cord[1]}')
             print(f"cyle: {count}")
         
-        
+     
         
         
 
