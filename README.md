@@ -43,4 +43,5 @@ Just kidding.
 * images sent : **782,644**
 ### Notes: 
 "Still not getting banned on snapchat. lets just keep building snapscore"
+"can we take down snapchat"?🤔
 
