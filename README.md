@@ -48,3 +48,4 @@ Just kidding.
 "Still not getting banned on snapchat. lets just keep building snapscore"
 "can we take down snapchat"?🤔
 
+This is opensource
