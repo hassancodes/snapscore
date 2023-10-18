@@ -45,7 +45,7 @@ Just kidding.
 * current snapscore reached : **1000000+**
 * images sent : **782,644**
 ### Notes: 
-"Still not getting banned on snapchat. lets just keep building snapscore"
+"Still not getting banned on snapchat. So I will keep building snapscore"
 "can we take down snapchat"?🤔
 
 This is opensource 🫡
