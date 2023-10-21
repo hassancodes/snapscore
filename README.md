@@ -1,4 +1,4 @@
-# Snapscore.py | A python bot to increase snapscore
+# Snapscore.py | A python bot to increase snapscore.
 An adb bot that builds my snapscore automatically
 # Flex while you unsnap 😜
 
