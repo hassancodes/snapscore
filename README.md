@@ -24,7 +24,7 @@ For the current codebase you have to provide the cordinates of each element from
 Required Software: 
 * python 3
 * **ADB** android debug bridge installed
-* An android device that you will connect to your pc. So we can execute the shell command through any charging cable. make sure that the charging cable supports data Transfer
+* An android device that you will connect to your pc. So we can execute the shell command through any charging cable. make sure that the charging cable supports data Transfer.
 
 To send one snap at a time you can simple run the command
 
