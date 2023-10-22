@@ -42,7 +42,7 @@ What can Be improved?
 
 Just kidding. 
 
-* current snapscore reached : **1000000+**
+* current snapscore reached : **1000480+**
 * images sent : **782,644**
 ### Notes: 
 "Still not getting banned on snapchat. So I will keep building snapscore"
