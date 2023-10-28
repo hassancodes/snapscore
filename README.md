@@ -46,6 +46,5 @@ Just kidding.
 * images sent : **782,644**
 ### Notes: 
 "Still not getting banned on snapchat. So I will keep building snapscore"
-"can we take down snapchat"?🤔
+- Idea : saw someone selling the snapscore to people . nice side hustle to make money
 
-This is opensource 🫡
