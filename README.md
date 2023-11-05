@@ -50,6 +50,6 @@ Just kidding.
 - comment : my repository is getting viral lol
 - Someone just contacted me because they saw my repo. feeling like a caleb 😇
 - I am thinking if this can be implemented on ios devices. that would be great
-- 
-
+- lets see
+  
 --------------EOF------------------
