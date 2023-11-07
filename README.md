@@ -51,5 +51,6 @@ Just kidding.
 - Someone just contacted me because they saw my repo. feeling like a caleb 😇
 - I am thinking if this can be implemented on ios devices. that would be great
 - lets see
+- Lol 3 stars, less gooo
   
 --------------EOF------------------
