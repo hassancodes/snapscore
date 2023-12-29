@@ -48,6 +48,10 @@ Just kidding.
 ### Notes: 
 "Still not getting banned on snapchat. So I will keep building snapscore"
 - Idea : saw someone selling the snapscore to people . nice side hustle to make money
-
-
+- comment : my repository is getting viral lol
+- Someone just contacted me because they saw my repo. feeling like a caleb 😇
+- I am thinking if this can be implemented on ios devices. that would be great
+- lets see
+- Lol 3 stars, less gooo
+  
 --------------EOF------------------
