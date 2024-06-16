@@ -54,4 +54,5 @@ Just kidding.
 - lets see
 - Lol 3 stars, less gooo
   
+  [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/hassancodes)
 --------------EOF------------------
