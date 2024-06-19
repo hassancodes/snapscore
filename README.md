@@ -45,14 +45,9 @@ Just kidding.
 
 * current snapscore reached : **1000480+**
 * images sent : **782,644**
-### Notes: 
-"Still not getting banned on snapchat. So I will keep building snapscore"
-- Idea : saw someone selling the snapscore to people . nice side hustle to make money
-- comment : my repository is getting viral lol
-- Someone just contacted me because they saw my repo. feeling like a caleb 😇
-- I am thinking if this can be implemented on ios devices. that would be great
-- lets see
-- Lol 3 stars, less gooo
-  
-  [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/hassancodes)
---------------EOF------------------
+
+
+####  Thanks for showing love. this Repository have 8 stars now . wow
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/hassancodes)
+
