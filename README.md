@@ -37,11 +37,9 @@ to multiple snaps to a group of people you can use the flag **"exp"**
 
 
 What can Be improved? 
-* Instead of giving the cordination, we can take screen shot of the android device, compare it with a smaller image where we want to click
+* Instead of giving the cordinates, we can take screen shot of the android device, compare it with a smaller image where we want to click
 * get the cordinates of that image.
-* And automatically perform actions on those cordinates. this will be genius and unstopable but then everyone will have a higher snapscore and then it will not be fun and then this will loose it value which I don't want. I am thinking of making this a private repo lol 😂😂.
-
-Just kidding. 
+* And automatically perform actions on those cordinates. this will be genius and unstopable but then everyone will have a higher snapscore and then it will not be fun and then this will loose it value which I don't want.😉
 
 * current snapscore reached : **1000480+**
 * images sent : **782,644**
