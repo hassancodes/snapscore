@@ -11,9 +11,6 @@ my top rated repos
 
 <img src=after.jpeg height=750 width=350>
 
-# After After 
-<img src=snapscore.jpg height=750 width=350>
-
 # More After After 
 <img src=real.jpg height=750 width=350>
 
