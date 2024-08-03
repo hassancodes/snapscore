@@ -12,7 +12,7 @@ my top rated repos
 <img src=after.jpeg height=750 width=350>
 
 # More After After 
-<img src=final.jpg height=750 width=350>
+<img src=final.jpg height=500 width=350>
 
 # Implementing multiple snapsends concurrently.
 Efficiency will be increased by 500% assuming that we are sending snaps to 5 people at the same time.
