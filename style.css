@@ -8,9 +8,10 @@
       
     }
 
-    h1{
+    div{
       display:flex;
       justify-content: center;
-      margin-top:45%;
+      align-items: center;
+      height: 100vh;
 
     }
