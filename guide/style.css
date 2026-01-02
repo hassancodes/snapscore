@@ -8,10 +8,31 @@
       
     }
 
-    div{
+    .comingsoon{
       display:flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
 
     }
+
+nav{
+  display:flex;
+  justify-content: space-between;
+  padding-left:20px;
+  padding-right:20px;
+  border-bottom:2px solid black;
+}
+
+.inner{
+  display:flex;
+  /* border:2px solid black; */
+
+}
+
+.inner p {
+  padding-left:20px;
+  padding-right:20px;
+}
+    
+
