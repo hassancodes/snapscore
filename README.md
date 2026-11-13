@@ -5,7 +5,7 @@ my top rated repos
 
 # Before
 
-<img src=before.jpeg >
+<img src=before.jpeg height=470 width=350>
 
 # After
 
