@@ -1,25 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snapscore | an adb bot to increase your snapscore</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/3c897625f8.js" crossorigin="anonymous"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snapscore.py guide – automate snaps with ADB</title>
+<meta name="description" content="Step-by-step guide to running snapscore.py, a Python ADB bot that sends snaps automatically from your Android phone.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👻</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/3c897625f8.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --black:#000;
+    --ink:#0a0a0a;
+    --panel:#141414;
+    --line:#2a2a2a;
+    --white:#fff;
+    --muted:#a8a8a8;
+    --yellow:#E3CB2D;
+    --blue:#1FB3FF;
+    --red:#F5476A;
+    --purple:#A66BFF;
+    --green:#3DDC84;
+    --radius:20px;
+    --head:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;
+    --body:'Instrument Sans','Helvetica Neue',Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{background:var(--black);color:var(--white);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  :focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:6px}
+  .wrap{width:min(1080px,100% - 40px);margin-inline:auto}
+  h1,h2,h3{font-family:var(--head);line-height:1.05;letter-spacing:-.02em}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:20;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--head);font-weight:800;font-size:1.15rem;text-decoration:none}
+  .logo i{color:var(--yellow);font-size:1.35rem}
+  .links{display:flex;gap:26px;align-items:center;font-size:.95rem}
+  .links a{text-decoration:none;color:var(--muted);transition:color .15s}
+  .links a:hover{color:var(--white)}
+  .links .gh{color:var(--black);background:var(--yellow);padding:8px 16px;border-radius:999px;font-weight:600}
+  .links .gh:hover{color:var(--black);filter:brightness(.92)}
+
+  .strip{height:5px;background:linear-gradient(90deg,var(--yellow) 0 20%,var(--blue) 20% 40%,var(--red) 40% 60%,var(--purple) 60% 80%,var(--green) 80% 100%)}
+  .links a i{margin-right:6px}
+
+  /* hero */
+  .hero{padding:96px 0 80px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center}
+  .hero h1{font-size:clamp(2.8rem,8vw,5.6rem);font-weight:800}
+  .hero h1 span{background:var(--yellow);color:var(--black);padding:0 .14em;border-radius:.12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .hero p{color:var(--muted);font-size:1.2rem;max-width:34em;margin:26px 0 34px}
+  .btns{display:flex;flex-wrap:wrap;gap:14px}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font-weight:600;text-decoration:none;border:2px solid var(--white);transition:transform .15s,background .15s,color .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:var(--yellow);border-color:var(--yellow);color:var(--black)}
+  .btn.ghost:hover{background:var(--white);color:var(--black)}
+  .btn.coffee{background:var(--white);border-color:var(--white);color:var(--black)}
+  .btn.coffee i{color:#b8860b}
+  .btn.coffee:hover{background:var(--yellow);border-color:var(--yellow)}
+  .ghost-art{display:grid;place-items:center}
+  .ghost-art .badge{width:min(300px,70vw);aspect-ratio:1;background:var(--yellow);color:var(--black);border-radius:64px;display:grid;place-items:center;font-size:clamp(6rem,18vw,9.5rem);transform:rotate(-6deg);box-shadow:14px 14px 0 var(--white);animation:pop .7s cubic-bezier(.2,1.4,.4,1) both}
+  @keyframes pop{from{transform:rotate(10deg) scale(.6);opacity:0}to{transform:rotate(-6deg) scale(1);opacity:1}}
+  .stats{display:flex;flex-wrap:wrap;gap:36px;margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
+  .stat b{display:block;font-family:var(--head);font-size:2rem;color:var(--c)}
+  .stat b i{font-size:1.4rem;margin-right:10px}
+  .stat small{color:var(--muted);font-size:.95rem}
+
+  /* sections */
+  section{padding:88px 0;border-top:1px solid var(--line)}
+  .sec-head{max-width:620px;margin-bottom:48px}
+  .sec-head h2{font-size:clamp(2rem,5vw,3.2rem);font-weight:800}
+  .sec-head p{color:var(--muted);margin-top:14px}
+  .hl{color:var(--yellow)}
+  .sec-head h2 i{color:var(--c,var(--yellow));margin-right:14px;font-size:.7em;vertical-align:.08em}
+
+  /* requirements */
+  .req{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:30px}
+  .card > i{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;color:#000;background:var(--c,var(--yellow));margin-bottom:20px}
+  .yellow{--c:var(--yellow)}.blue{--c:var(--blue)}.red{--c:var(--red)}.purple{--c:var(--purple)}.green{--c:var(--green)}
+  .card h3{font-size:1.35rem;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:.98rem}
+
+  /* steps */
+  .steps{list-style:none;counter-reset:s;display:grid;gap:0;max-width:820px}
+  .steps li{counter-increment:s;position:relative;padding:0 0 38px 74px}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:0;width:48px;height:48px;border-radius:50%;background:var(--c,var(--yellow));color:var(--black);font-family:var(--head);font-weight:800;font-size:1.2rem;display:grid;place-items:center}
+  .steps li::after{content:"";position:absolute;left:23px;top:56px;bottom:8px;width:2px;background:var(--line)}
+  .steps li:last-child{padding-bottom:0}
+  .steps li:last-child::after{display:none}
+  .steps h3{font-size:1.4rem;margin-bottom:6px;padding-top:6px}
+  .steps h3 i{color:var(--c);margin-right:10px;font-size:1.1rem}
+  .steps li:nth-child(1){--c:var(--yellow)}.steps li:nth-child(2){--c:var(--blue)}.steps li:nth-child(3){--c:var(--red)}.steps li:nth-child(4){--c:var(--purple)}.steps li:nth-child(5){--c:var(--green)}.steps li:nth-child(6){--c:var(--yellow)}
+  .steps p{color:var(--muted)}
+  .steps p b{color:var(--white);font-weight:600}
+  code.inline{background:var(--panel);border:1px solid var(--line);padding:2px 8px;border-radius:8px;font-size:.9em;color:var(--yellow);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+  /* code blocks */
+  .code{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 14px 14px 20px;margin-top:14px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.95rem;overflow:hidden}
+  .code span{overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+  .code span::-webkit-scrollbar{display:none}
+  .code .pre{color:var(--yellow);margin-right:12px;user-select:none;font-style:normal}
+  .copy{flex:none;background:transparent;color:var(--white);border:1px solid var(--line);border-radius:10px;padding:7px 12px;cursor:pointer;font:inherit;font-size:.85rem;transition:background .15s,color .15s,border-color .15s}
+  .copy:hover{background:var(--yellow);color:var(--black);border-color:var(--yellow)}
+  .copy.done{background:var(--white);color:var(--black);border-color:var(--white)}
+
+  /* run */
+  .run{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .run .card h3{display:flex;align-items:center;gap:12px}
+  .run .card h3 i{margin:0;font-size:1.2rem;color:var(--c)}
+  .note{margin-top:28px;display:flex;gap:16px;align-items:flex-start;border:2px solid var(--red);border-radius:var(--radius);padding:22px 26px;color:var(--white)}
+  .note i{color:var(--red);font-size:1.4rem;margin-top:4px}
+  .note p{color:var(--muted)}
+  .note b{color:var(--white)}
+
+  /* gallery */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  figure{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  figure img{width:100%;aspect-ratio:9/16;object-fit:cover;background:#1b1b1b}
+  figcaption{padding:16px 20px;font-family:var(--head);font-weight:700;display:flex;align-items:center;gap:10px}
+  figcaption i{color:var(--c)}
+
+  /* improve */
+  .ideas{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  
+
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:56px 0 48px;text-align:center}
+  footer .big{font-family:var(--head);font-weight:800;font-size:clamp(1.6rem,4vw,2.4rem);margin-bottom:24px}
+  .social{display:flex;justify-content:center;gap:14px;margin-bottom:28px;flex-wrap:wrap}
+  .social a{width:52px;height:52px;border-radius:50%;border:2px solid var(--white);display:grid;place-items:center;font-size:1.25rem;text-decoration:none;transition:background .15s,color .15s,border-color .15s,transform .15s}
+  .social a:hover{background:var(--c,var(--yellow));border-color:var(--c,var(--yellow));color:var(--black);transform:translateY(-3px)}
+  footer small{color:var(--muted)}
+
+  .ic{color:var(--yellow);margin-right:6px;font-size:.9em}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin:-8px 0 30px}
+  .pills span{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);padding:7px 14px;border-radius:999px;font-size:.92rem}
+  .pills i{color:var(--yellow)}
+  code.inline i{margin-right:4px}
+  .top{position:fixed;right:20px;bottom:20px;width:48px;height:48px;border-radius:50%;background:var(--yellow);color:#000;display:grid;place-items:center;text-decoration:none;font-size:1.1rem;box-shadow:0 6px 18px rgba(0,0,0,.5);transition:transform .15s}
+  .top:hover{transform:translateY(-3px)}
+
+  /* responsive */
+  @media (max-width:860px){
+    .hero{padding:64px 0 56px}
+    .hero-grid{grid-template-columns:1fr}
+    .ghost-art{order:-1;justify-content:start}
+    .ghost-art .badge{width:150px;border-radius:40px;font-size:5rem;box-shadow:8px 8px 0 var(--white)}
+    .req,.gallery{grid-template-columns:1fr}
+    .run,.ideas{grid-template-columns:1fr}
+    .gallery figure{max-width:380px}
+    .links a:not(.gh){display:none}
+    section{padding:64px 0}
+    .steps li{padding-left:64px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .ghost-art .badge{animation:none;transform:rotate(-6deg)}
+    .btn,.social a{transition:none}
+  }
+</style>
 </head>
 <body>
-    <nav>
-        <div>
-            <p>SnapScore</p>
-        </div>
-        <div class="inner">
-            <p>How to?</p>
-            <p>About</p>
-            <p>Buy me a Coffee</p>
-        </div>
-    </nav>
-    <div class="comingsoon">
-    <h1>SnapScore Guide Comming Soon. <i class="fa-solid fa-code"></i></h1>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="#top"><i class="fa-brands fa-snapchat"></i> snapscore.py</a>
+    <div class="links">
+      <a href="#need"><i class="fa-solid fa-list-check"></i>Requirements</a>
+      <a href="#setup"><i class="fa-solid fa-gears"></i>Setup</a>
+      <a href="#run"><i class="fa-solid fa-play"></i>Run</a>
+      <a href="#results"><i class="fa-solid fa-image"></i>Results</a>
+      <a class="gh" href="https://github.com/hassancodes/snapscore" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
     </div>
+  </div>
+  <div class="strip"></div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <h1>Build your <span>snapscore</span> on autopilot.</h1>
+        <p>A Python bot that taps through Snapchat on your Android phone over ADB and sends snaps for you. This guide takes you from clone to first run.</p>
+        <div class="pills">
+          <span><i class="fa-brands fa-python"></i> Python</span>
+          <span><i class="fa-brands fa-android"></i> Android</span>
+          <span><i class="fa-solid fa-terminal"></i> ADB</span>
+        </div>
+        <div class="btns">
+          <a class="btn primary" href="#setup"><i class="fa-solid fa-rocket"></i> Start the guide</a>
+          <a class="btn ghost" href="https://github.com/hassancodes/snapscore" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> View the repo</a>
+          <a class="btn coffee" href="#" target="_blank" rel="noopener"><i class="fa-solid fa-mug-hot"></i> Buy me a coffee</a>
+        </div>
+      </div>
+      <div class="ghost-art" aria-hidden="true">
+        <div class="badge"><i class="fa-brands fa-snapchat"></i></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat yellow"><b><i class="fa-solid fa-ghost"></i>1,000,480+</b><small>snapscore reached</small></div>
+      <div class="stat blue"><b><i class="fa-solid fa-paper-plane"></i>782,644</b><small>snaps sent</small></div>
+      <div class="stat purple"><b><i class="fa-solid fa-star"></i>30</b><small>GitHub stars</small></div>
+    </div>
+  </div>
+</header>
+
+<section id="need">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="blue"><i class="fa-solid fa-list-check"></i>What you need</h2>
+      <p>Three things on hand before you start.</p>
+    </div>
+    <div class="req">
+      <div class="card blue">
+        <i class="fa-brands fa-python"></i>
+        <h3>Python 3</h3>
+        <p>Runs the bot script on your computer.</p>
+      </div>
+      <div class="card green">
+        <i class="fa-brands fa-android"></i>
+        <h3>ADB installed</h3>
+        <p>Android Debug Bridge lets your computer send taps to the phone.</p>
+      </div>
+      <div class="card red">
+        <i class="fa-solid fa-plug"></i>
+        <h3>Android phone + data cable</h3>
+        <p>A charging-only cable won't work. Use one that supports data transfer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="setup">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="purple"><i class="fa-solid fa-gears"></i>Setup in six steps</h2>
+      <p>Do these once. After that, running the bot is one command.</p>
+    </div>
+    <ol class="steps">
+      <li>
+        <h3><i class="fa-solid fa-code-branch"></i>Clone the repo</h3>
+        <p>Download the project to your computer.</p>
+        <div class="code"><span><em class="pre"><i class="fa-solid fa-terminal"></i></em>git clone https://github.com/hassancodes/snapscore.git</span><button class="copy" type="button"><i class="fa-regular fa-copy"></i> Copy</button></div>
+      </li>
+      <li>
+        <h3><i class="fa-solid fa-box-open"></i>Install the requirements</h3>
+        <p>Move into the folder and install the Python packages.</p>
+        <div class="code"><span><em class="pre"><i class="fa-solid fa-terminal"></i></em>cd snapscore &amp;&amp; pip install -r requirements.txt</span><button class="copy" type="button"><i class="fa-regular fa-copy"></i> Copy</button></div>
+      </li>
+      <li>
+        <h3><i class="fa-solid fa-bug"></i>Turn on USB debugging</h3>
+        <p>On your phone, open <b><i class="fa-solid fa-gear ic"></i>Settings → About phone</b> and tap <b><i class="fa-solid fa-hashtag ic"></i>Build number</b> seven times to unlock Developer options. Then switch on <b><i class="fa-brands fa-usb ic"></i>USB debugging</b>.</p>
+      </li>
+      <li>
+        <h3><i class="fa-solid fa-mobile-screen"></i>Connect the phone</h3>
+        <p>Plug it in, accept the debugging prompt on the screen, then check that ADB sees it.</p>
+        <div class="code"><span><em class="pre"><i class="fa-solid fa-terminal"></i></em>adb devices</span><button class="copy" type="button"><i class="fa-regular fa-copy"></i> Copy</button></div>
+        <p style="margin-top:12px">Your device should show up in the list as <code class="inline">device</code> <i class="fa-solid fa-circle-check" style="color:var(--green)"></i></p>
+      </li>
+      <li>
+        <h3><i class="fa-solid fa-crosshairs"></i>Find your tap coordinates</h3>
+        <p>The bot needs the screen position of each button it taps. In Developer options, turn on <b><i class="fa-solid fa-hand-pointer ic"></i>Show taps</b> or <b><i class="fa-solid fa-location-crosshairs ic"></i>Pointer location</b>, open Snapchat, and note where the camera button, send button and friends sit.</p>
+      </li>
+      <li>
+        <h3><i class="fa-solid fa-pen-to-square"></i>Add them to the script</h3>
+        <p>Open <code class="inline"><i class="fa-brands fa-python"></i> snapscore.py</code> and replace the coordinates with the ones from your phone. Every screen size is different, so this step makes the bot work on your device.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="run">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="green"><i class="fa-solid fa-play"></i>Run the bot</h2>
+      <p><i class="fa-solid fa-camera hl"></i> Open Snapchat on the camera screen, then start the script.</p>
+    </div>
+    <div class="run">
+      <div class="card blue">
+        <h3><i class="fa-solid fa-user"></i> One snap at a time</h3>
+        <p>The default mode. Sends to one person per round.</p>
+        <div class="code"><span><em class="pre"><i class="fa-solid fa-terminal"></i></em>python snapscore.py</span><button class="copy" type="button"><i class="fa-regular fa-copy"></i> Copy</button></div>
+      </div>
+      <div class="card purple">
+        <h3><i class="fa-solid fa-user-group"></i> Many people at once</h3>
+        <p>Add the <code class="inline"><i class="fa-solid fa-flask"></i> exp</code> flag to send to a group of friends together. Sending to 5 people at the same time is about 5× faster.</p>
+        <div class="code"><span><em class="pre"><i class="fa-solid fa-terminal"></i></em>python snapscore.py exp</span><button class="copy" type="button"><i class="fa-regular fa-copy"></i> Copy</button></div>
+      </div>
+    </div>
+    <div class="note">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <p><b>Use at your own risk.</b> Automating Snapchat may go against its terms of service and can get an account limited or locked. Try it on an account you can afford to lose.</p>
+    </div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="red"><i class="fa-solid fa-fire"></i>Flex while you unsnap</h2>
+      <p>Real results from the bot, from the first run to over a million.</p>
+    </div>
+    <div class="gallery">
+      <figure class="blue">
+        <img loading="lazy" src="https://raw.githubusercontent.com/hassancodes/snapscore/master/before.jpeg" alt="Snapchat profile screenshot before running the bot">
+        <figcaption><i class="fa-solid fa-circle-play"></i> Before</figcaption>
+      </figure>
+      <figure class="green">
+        <img loading="lazy" src="https://raw.githubusercontent.com/hassancodes/snapscore/master/after.jpeg" alt="Snapchat profile screenshot after running the bot">
+        <figcaption><i class="fa-solid fa-chart-line"></i> After</figcaption>
+      </figure>
+      <figure class="yellow">
+        <img loading="lazy" src="https://raw.githubusercontent.com/hassancodes/snapscore/master/final.jpg" alt="Snapchat profile screenshot with a score over one million">
+        <figcaption><i class="fa-solid fa-trophy"></i> Even more after</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="improve">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="yellow"><i class="fa-solid fa-lightbulb"></i>What can be improved</h2>
+      <p>Ideas for making the bot smarter. Pull requests welcome.</p>
+    </div>
+    <div class="ideas">
+      <div class="card green">
+        <i class="fa-solid fa-image"></i>
+        <h3>Find buttons by image</h3>
+        <p>Take a screenshot of the phone, match it against a small image of the button, and read the coordinates from the match instead of typing them in.</p>
+      </div>
+      <div class="card red">
+        <i class="fa-solid fa-hand-pointer"></i>
+        <h3>Tap automatically</h3>
+        <p>Use those detected coordinates to perform the taps, so the bot works on any screen size with no setup.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="big">Enjoying the project?</div>
+    <a class="btn coffee" href="#" target="_blank" rel="noopener" style="margin-bottom:28px"><i class="fa-solid fa-mug-hot"></i> Buy me a coffee</a>
+    <div class="social">
+      <a href="https://github.com/hassancodes/snapscore" target="_blank" rel="noopener" class="blue" aria-label="Star the repo on GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://github.com/hassancodes/snapscore/issues" target="_blank" rel="noopener" class="red" aria-label="Report an issue"><i class="fa-solid fa-bug"></i></a>
+      <a class="yellow" href="#" target="_blank" rel="noopener" aria-label="Buy me a coffee"><i class="fa-solid fa-mug-hot"></i></a>
+    </div>
+    <small>Made with <i class="fa-solid fa-heart" style="color:var(--red)"></i> by <a href="https://github.com/hassancodes" target="_blank" rel="noopener">hassancodes</a>. Not affiliated with Snap Inc.</small>
+  </div>
+</footer>
+
+<a class="top" href="#top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+
+<script>
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = btn.parentElement.querySelector('span').textContent.replace(/^\$\s*/, '').trim();
+      var done = function(){
+        btn.classList.add('done');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+        setTimeout(function(){
+          btn.classList.remove('done');
+          btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
+        }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function(){});
+      }
+    });
+  });
+</script>
 </body>
 </html>
