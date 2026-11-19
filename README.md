@@ -45,7 +45,7 @@ What can Be improved?
 * images sent : **782,644**
 
 
-####  Thanks for showing love. this Repository have 8 stars now . wow
+####  Thanks for showing love. this Repository have 32 stars now.
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/hassancodes)
 
